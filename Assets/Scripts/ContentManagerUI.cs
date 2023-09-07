@@ -3,11 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
+using UnityEngine.Pool;
 
 public class ContentManagerUI : MonoBehaviour
 {
-    [SerializeField] private Button rewardButton;
-
 #nullable enable
     [SerializeField] ContentData? contentData;
     [SerializeField] TextMeshProUGUI? id;
@@ -22,8 +21,10 @@ public class ContentManagerUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI? coolDownTime;
 #nullable disable
 
-    private string imageURL; 
+    private string imageURL;
     private string hour = " H";
+    private bool iscooling = false;
+    private bool canPlayBurstAnimation = true;
     private void Start()
     {
         imageURL = contentData.currency_image_url;
@@ -40,10 +41,11 @@ public class ContentManagerUI : MonoBehaviour
         if (currency_Earned != null) currency_Earned.text = contentData?.curr_earned.ToString();
         if (is_coolingdown != null) is_coolingdown.text = contentData?.is_cooling_down.ToString();
         if (coolDownTime != null) coolDownTime.text = contentData?.cool_down_time.ToString("F2");
-        if (contentData?.show_claim == 1) {
+        if (contentData?.show_claim == 1)
+        {
             SetClaim("Claim!");
         }
-        else if(contentData.is_cooling_down == 1)
+        else if (contentData.is_cooling_down == 1)
         {
             SetClaim($"cooling \n down");
         }
@@ -64,11 +66,41 @@ public class ContentManagerUI : MonoBehaviour
         }
         else
         {
-           if(currency_image != null) currency_image.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            if (currency_image != null) currency_image.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
         }
     }
     private void SetClaim(string status)
     {
         if (showClaim != null) showClaim.text = status;
+    }
+    public void StartCooldown()
+    {
+        if (!iscooling)
+        {
+            SetClaim($"cooling \n off");
+            AudioManager.instance.PlayDecidemp();
+            iscooling = true;
+        }
+    }
+    public void PlayBurstAnimation() => StartCoroutine(BurstAnimation());
+   
+    IEnumerator BurstAnimation()
+    {
+        if (canPlayBurstAnimation)
+        {
+            for(int i = 0; i < 10; i++)
+            {
+                GameObject _burstNeuron = GetBurstNeuron();
+                
+                yield return new WaitForSeconds(0.15f);
+            }
+        }
+    }
+    private GameObject GetBurstNeuron()
+    {
+        GameObject burstNeuron = ObjectPooling.instance.GetPooledObject();
+        burstNeuron.transform.position = transform.position;
+        burstNeuron.SetActive(true);
+        return burstNeuron;
     }
 }

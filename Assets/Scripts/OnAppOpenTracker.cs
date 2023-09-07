@@ -16,8 +16,6 @@ public class OnAppOpenTracker : MonoBehaviour
         UnityWebRequest request = new UnityWebRequest(apiURL, "POST");
         request.SetRequestHeader("Authorization", "Bearer " + authToken);
 
-        // You can add more data to the request if needed.
-
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
