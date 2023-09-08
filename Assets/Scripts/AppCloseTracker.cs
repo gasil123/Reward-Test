@@ -1,17 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Collections;
-public class OnAppOpenTracker : MonoBehaviour
+
+public class AppCloseTracker : MonoBehaviour
 {
     private string apiURL = "https://leeloolxp.epicmindarena.com/api/attendance/clockin";
     private string authToken = "2dMl9jlzHnQNgOqsGFHyN4g4d4UFVlGl1T02EH2OEegamLKaB4XbvWOB42ZuxO96";
-
-    void Start()
+    public void OnApplicationQuit()
     {
         StartCoroutine(TrackAppOpen());
-        InvokeRepeating("TrackAppOpen", 0f, 300f); // 300 seconds = 5 minutes
     }
-
     IEnumerator TrackAppOpen()
     {
         UnityWebRequest request = new UnityWebRequest(apiURL, "POST");
@@ -23,9 +22,8 @@ public class OnAppOpenTracker : MonoBehaviour
         {
             Debug.LogError("App open tracking request failed: " + request.error);
         }
-        else
-        {
-            Debug.Log("App open tracking request Success");
+        else{
+            Debug.Log("App open tracking request success : Closing");
         }
     }
 }

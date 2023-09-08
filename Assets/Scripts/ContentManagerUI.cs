@@ -99,7 +99,7 @@ public class ContentManagerUI : MonoBehaviour
     private GameObject GetBurstNeuron()
     {
         GameObject burstNeuron = ObjectPooling.instance.GetPooledObject();
-        burstNeuron.transform.position = transform.position;
+        burstNeuron.transform.position = currency_image.transform.position;
         burstNeuron.SetActive(true);
         return burstNeuron;
     }
