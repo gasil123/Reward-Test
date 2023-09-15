@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849e0776aec24c74dac01ac3cd91092a, type: 3}
   m_Name: Content 2
   m_EditorClassIdentifier: 
-  id: 0
-  award_every: 0
-  minimum_connection_time: 0
+  img:
+  - {fileID: 21300000, guid: f5b019dbf5ef6a440a9ae03372631fc3, type: 3}
+  - {fileID: 21300000, guid: 86af5bdd279fab440a1b1743316b35a2, type: 3}
+  - {fileID: 21300000, guid: 780dcbb53c1b7034ab371cf75246c626, type: 3}
+  id: 2
+  award_every: 4
+  minimum_connection_time: 2
   show_claim: 0
-  currency_required: 0
-  currency_image_url: 
+  currency_required: 20
+  currency_image_url: https://leeloolxp.epicmindarena.com/public/storage/images/jade.png
   loggedin_time: 0
   curr_earned: 0
   is_cooling_down: 0
-  cool_down_time: 0
+  cool_down_time: 5

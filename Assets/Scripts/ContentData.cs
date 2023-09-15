@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
+
 [CreateAssetMenu(fileName = "ContentData", menuName = "content", order = 1)]
 public class ContentData : ScriptableObject
 {
+    public Sprite[] img;
     public int id;
     public int award_every;
     public int minimum_connection_time;

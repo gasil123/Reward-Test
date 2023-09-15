@@ -35,16 +35,14 @@ public class ObjectPooling : MonoBehaviour
                 return pooledObjects[i];
             }
         }
-        if (shouldExpand)
-        {
-            GameObject obj = (GameObject)Instantiate(objectToPool);
-            obj.SetActive(false);
-            pooledObjects.Add(obj);
-            return obj;
-        }
-        else
-        {
-            return null;
-        }
+        return null;
+        //if (shouldExpand)
+        //{
+        //    GameObject obj = (GameObject)Instantiate(objectToPool);
+        //    obj.SetActive(false);
+        //    pooledObjects.Add(obj);
+        //    return obj;
+        //}
+
     }
 }

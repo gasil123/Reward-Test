@@ -5,16 +5,13 @@ using TMPro;
 using Newtonsoft.Json;
 public class JSONDownloader : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI mainTimer;
+    [SerializeField] TimerManager mainTimer;
+    float time;
     private void Start()
     {
-        StartCoroutine(GetRewards());
+        StartCoroutine(GetRewards()); 
     }
     public ContentData[] datas;
-    public void SetMainTimer(float time)
-    {
-        mainTimer.text = time.ToString("F2");
-    }
     IEnumerator GetRewards()
     {
         UnityWebRequest request = UnityWebRequest.Get("https://epicmindarena.com/inteview_api/get_all_hourlyrewards.json");
@@ -27,7 +24,8 @@ public class JSONDownloader : MonoBehaviour
             try
             {
                 Reward rewardsResponse = JsonConvert.DeserializeObject<Reward>(jsonResponse);
-                SetMainTimer(rewardsResponse.next_reward_minutes);
+                mainTimer.timeInMinutes = rewardsResponse.next_reward_minutes;
+              
                 if (rewardsResponse != null && rewardsResponse.rewards != null)
                 {
                     for(int i= 0;i< rewardsResponse.rewards.Count; i++)

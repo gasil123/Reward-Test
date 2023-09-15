@@ -9,7 +9,7 @@ public class OnAppOpenTracker : MonoBehaviour
     void Start()
     {
         StartCoroutine(TrackAppOpen());
-        InvokeRepeating("TrackAppOpen", 0f, 300f); // 300 seconds = 5 minutes
+        InvokeRepeating("TrackAppOpen", 0f, 60f); // 300 seconds = 5 minutes
     }
 
     IEnumerator TrackAppOpen()
